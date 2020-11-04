@@ -6,3 +6,6 @@
 # ignore files
 *.prob
 *.bin
+input.txt
+output.txt
+*.out
