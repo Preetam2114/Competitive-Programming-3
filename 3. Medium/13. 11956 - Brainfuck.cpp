@@ -9,7 +9,7 @@ using namespace std;
 #endif
 
 #define F first
-#define S second
+#define S second 
 #define pb push_back 
 #define mp make_pair
 #define rep(i,a,b) for(int i = a; i <= b; i++)
@@ -18,7 +18,7 @@ using namespace std;
 #define print(arr) for(auto a:arr) cout<<a<<" "; cout<<"\n";
 #define all(ar) ar.begin(), ar.end()
 #define foreach(it, ar) for (auto it = ar.begin(); it != ar.end(); it++)
-#define fil(ar, val) memset(ar, val, sizeof(ar))
+// #define fil(ar, val) memset(ar, val, sizeof(ar))
 #define endl '\n'
 
 #ifndef preetam
@@ -49,29 +49,62 @@ typedef pair<int, int> pii;
 const ll mod = 1e9;
 #endif
 
+vector<int>output(110);
+
 int main() {
 	ios_base::sync_with_stdio(false);
 	cin.tie(NULL);
 	cout.tie(NULL);
-	ll t=1;
-  string s;
-  while(cin>>s,s!="END"){
-    if(s == "1"){
-        cout<<1<<endl;
-        continue;
+  int index;
+  int cases;
+  string instruction;
+  char option;
+  scanf("%d", &cases);
+
+  rep(i,1,cases){
+      cin>>instruction;
+      fill(output.begin(), output.end(), 0);
+      index = 0;
+
+      rep(j,0,instruction.size()-1){
+          option = instruction[j];
+
+          if(option == '>'){
+              index++;
+
+              if(index >= 100)
+                  index = 0;
+          }
+          else if(option == '<'){
+              index--;
+
+              if(index <=-1)
+                  index = 99;
+          }
+          else if(option == '+'){
+              output[index]++;
+
+              if(output[index] > 255)
+                  output[index] = 0;
+          }
+
+          else if(option == '-'){
+              output[index]--;
+              if(output[index] < 0)
+                  output[index] = 255;
+          }
+          else if(option == '.')
+              continue;
+      }
+
+      printf("Case %d: ", i);
+
+      rep(i,0,99){
+          if(i<99)
+              printf("%02X ", output[i]);
+          else
+              printf("%02X\n", output[i]);
+      }
     }
-    int a = s.size();
-    int cnt = 2;
-    while(a != 1){
-        int b = 0;
-        while(a){
-            a /= 10;
-            b++;
-        }
-        a = b;
-        cnt++;
-    }
-    cout<<cnt<<endl;
-  }
 	return 0;
 }
